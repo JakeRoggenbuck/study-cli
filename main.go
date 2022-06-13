@@ -65,6 +65,7 @@ func quiz(amount int, questions []Single) {
 
 		answers := [4]string{"A", "B", "C", "D"}
 
+		fmt.Print("\n")
 		if input == answers[picked.Correct] {
 			color.Green.Print("Correct\n\n")
 		} else {
@@ -86,7 +87,7 @@ func quiz(amount int, questions []Single) {
 			fmt.Scan(&input)
 		}
 
-		fmt.Print("\n\n\n")
+		fmt.Print("\n\n")
 	}
 }
 
