@@ -1,44 +1,50 @@
 package main
 
 import (
-    "encoding/json"
-    "io/ioutil"
-    "log"
+	"encoding/json"
 	"fmt"
+	"github.com/gookit/color"
+	"io/ioutil"
+	"log"
 	"math/rand"
 	"time"
-	"github.com/gookit/color"
 )
 
 type Single struct {
-	Name string `json:"name"`
-	Correct int `json:"correct"`
-	Answers []string `json:"answers"`
-	Question string `json:"question"`
+	Name     string   `json:"name"`
+	Correct  int      `json:"correct"`
+	Answers  []string `json:"answers"`
+	Question string   `json:"question"`
 }
 
 func load_questions(filename string) []Single {
 	content, err := ioutil.ReadFile(filename)
-    if err != nil {
-        log.Fatal("Error when opening file: ", err)
-    }
+	if err != nil {
+		log.Fatal("Error when opening file: ", err)
+	}
 
 	var payload []Single
-    err = json.Unmarshal(content, &payload)
-    if err != nil {
+	err = json.Unmarshal(content, &payload)
+	if err != nil {
 		log.Fatal("Error during Unmarshal(): ", err)
-    }
+	}
 
 	return payload
 }
 
 func learn(amount int, questions []Single) {
+	var ready string
+
 	for i := 0; i < amount; i++ {
 		rand_num := rand.Intn(len(questions))
 
 		picked := questions[rand_num]
 		fmt.Println(picked.Question)
-		fmt.Println(picked.Answers[picked.Correct][3:] + "\n")
+		color.Green.Println(picked.Answers[picked.Correct][3:] + "\n")
+
+		fmt.Print("Reviewed? ")
+		fmt.Scan(&ready)
+		fmt.Print("\n")
 	}
 }
 
@@ -53,7 +59,7 @@ func quiz(amount int, questions []Single) {
 		for _, ans := range picked.Answers {
 			fmt.Println(ans)
 		}
-		
+
 		fmt.Print("Answer: ")
 		fmt.Scan(&input)
 
