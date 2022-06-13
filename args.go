@@ -5,9 +5,9 @@ import (
 )
 
 type Args struct {
-	learn bool
-	quiz bool
-	amount int
+	learn    bool
+	quiz     bool
+	amount   int
 	filename string
 }
 
@@ -19,5 +19,5 @@ func parse_args() Args {
 
 	flag.Parse()
 
-	return Args { *learn_flag, *quiz_flag, *amount, *filename }
+	return Args{*learn_flag, *quiz_flag, *amount, *filename}
 }
