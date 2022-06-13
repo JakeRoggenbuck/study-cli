@@ -17,8 +17,8 @@ type Single struct {
 	Question string `json:"question"`
 }
 
-func load_questions() []Single {
-	content, err := ioutil.ReadFile("./config.json")
+func load_questions(filename string) []Single {
+	content, err := ioutil.ReadFile(filename)
     if err != nil {
         log.Fatal("Error when opening file: ", err)
     }
@@ -86,9 +86,9 @@ func quiz(amount int, questions []Single) {
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	questions := load_questions()
-	
 	args := parse_args()
+
+	questions := load_questions(args.filename)
 
 	if args.learn {
 		learn(args.amount, questions)
