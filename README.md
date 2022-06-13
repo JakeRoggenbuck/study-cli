@@ -1,5 +1,5 @@
 # study-cli
-CLI tool to quiz and learn a question dataset. This can be used for memorizing any sort of multiple choice complaint quizzes. Similar to flashcards, except no need to write out flash cards, or carry them with you. Also, study-cli can be set to random ask if you'd like to study at random times.
+CLI tool to quiz and learn a question dataset. This can be used for memorizing any sort of multiple choice compliant quizzes. Similar to flashcards, except no need to write out flash cards, or carry them with you. Also, study-cli can be set to random ask if you'd like to study at random times.
 
 ## Question Set Schema
 ```go
