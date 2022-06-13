@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+	"github.com/gookit/color"
 )
 
 type Single struct {
@@ -31,6 +32,15 @@ func load_questions() []Single {
 	return payload
 }
 
+func indexOf(word string, data [4]string) int {
+    for k, v := range data {
+        if word == v {
+            return k
+        }
+    }
+    return -1
+}
+
 func learn(amount int, questions []Single) {
 	for i := 0; i < amount; i++ {
 		rand_num := rand.Intn(len(questions))
@@ -41,9 +51,50 @@ func learn(amount int, questions []Single) {
 	}
 }
 
+func quiz(amount int, questions []Single) {
+	for i := 0; i < amount; i++ {
+		fmt.Println("--------------------------------------------------------------------------------")
+		rand_num := rand.Intn(len(questions))
+
+		var input string
+		picked := questions[rand_num]
+		color.Blue.Println(picked.Question)
+		for _, ans := range picked.Answers {
+			fmt.Println(ans)
+		}
+		
+		fmt.Print("Answer: ")
+		fmt.Scan(&input)
+
+		answers := [4]string{"A", "B", "C", "D"}
+
+		if input == answers[picked.Correct] {
+			color.Green.Print("Correct\n\n")
+		} else {
+			index_of_wrong_ans := indexOf(input, answers)
+			index_of_right_ans := picked.Correct
+			for c, ans := range picked.Answers {
+				if c == index_of_wrong_ans {
+					color.Red.Println(ans)
+				} else if c == index_of_right_ans {
+					color.Green.Println(ans)
+				} else {
+					fmt.Println(ans)
+				}
+			}
+			fmt.Print("\n")
+
+			fmt.Print("Reviewed? ")
+			fmt.Scan(&input)
+		}
+
+		fmt.Print("\n\n\n")
+	}
+}
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	questions := load_questions()
 	
-	learn(10, questions)
+	quiz(10, questions)
 }
