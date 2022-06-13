@@ -33,12 +33,18 @@ func load_questions(filename string) []Single {
 }
 
 func learn(amount int, questions []Single) {
+	var ready string
+
 	for i := 0; i < amount; i++ {
 		rand_num := rand.Intn(len(questions))
 
 		picked := questions[rand_num]
 		fmt.Println(picked.Question)
-		fmt.Println(picked.Answers[picked.Correct][3:] + "\n")
+		color.Green.Println(picked.Answers[picked.Correct][3:] + "\n")
+
+		fmt.Print("Reviewed? ")
+		fmt.Scan(&ready)
+		fmt.Print("\n")
 	}
 }
 
