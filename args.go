@@ -5,12 +5,12 @@ import (
 )
 
 type Args struct {
-	learn    bool
-	quiz     bool
-	amount   int
-	filename string
-	random   bool
-	random_prob int
+	learn        bool
+	quiz         bool
+	amount       int
+	filename     string
+	random       bool
+	random_prob  int
 	random_count int
 }
 
