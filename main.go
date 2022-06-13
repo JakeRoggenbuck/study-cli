@@ -8,7 +8,6 @@ import (
 	"math/rand"
 	"time"
 	"github.com/gookit/color"
-	"flag"
 )
 
 type Single struct {
@@ -31,15 +30,6 @@ func load_questions() []Single {
     }
 
 	return payload
-}
-
-func indexOf(word string, data [4]string) int {
-    for k, v := range data {
-        if word == v {
-            return k
-        }
-    }
-    return -1
 }
 
 func learn(amount int, questions []Single) {
@@ -98,15 +88,11 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	questions := load_questions()
 	
-	learn_flag := flag.Bool("learn", false, "Set to learn mode")
-	quiz_flag := flag.Bool("quiz", false, "Set to quiz mode")
-	amount := flag.Int("amount", 10, "Set amount of questions")
+	args := parse_args()
 
-	flag.Parse()
-
-	if *learn_flag {
-		learn(*amount, questions)
-	} else if *quiz_flag {
-		quiz(*amount, questions)
+	if args.learn {
+		learn(args.amount, questions)
+	} else if args.quiz {
+		quiz(args.amount, questions)
 	}
 }
