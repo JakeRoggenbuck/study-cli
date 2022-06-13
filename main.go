@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"time"
 	"github.com/gookit/color"
+	"flag"
 )
 
 type Single struct {
@@ -71,6 +72,7 @@ func quiz(amount int, questions []Single) {
 		if input == answers[picked.Correct] {
 			color.Green.Print("Correct\n\n")
 		} else {
+			// Highlight correct and incorrect answers
 			index_of_wrong_ans := indexOf(input, answers)
 			index_of_right_ans := picked.Correct
 			for c, ans := range picked.Answers {
@@ -96,5 +98,15 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	questions := load_questions()
 	
-	quiz(10, questions)
+	learn_flag := flag.Bool("learn", false, "Set to learn mode")
+	quiz_flag := flag.Bool("quiz", false, "Set to quiz mode")
+	amount := flag.Int("amount", 10, "Set amount of questions")
+
+	flag.Parse()
+
+	if *learn_flag {
+		learn(*amount, questions)
+	} else if *quiz_flag {
+		quiz(*amount, questions)
+	}
 }
