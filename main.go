@@ -94,5 +94,8 @@ func main() {
 		learn(args.amount, questions)
 	} else if args.quiz {
 		quiz(args.amount, questions)
+	} else {
+		fmt.Println("Welcome to study-cli!")
+		fmt.Println("Use --help for more info")
 	}
 }
