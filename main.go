@@ -90,6 +90,15 @@ func quiz(amount int, questions []Single) {
 	}
 }
 
+func random(random_prob int, random_count int, questions []Single) {
+	rand_num := rand.Intn(100)
+	quiz_user := rand_num < random_prob
+
+	if quiz_user {
+		quiz(random_count, questions)
+	}
+}
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	args := parse_args()
@@ -100,6 +109,8 @@ func main() {
 		learn(args.amount, questions)
 	} else if args.quiz {
 		quiz(args.amount, questions)
+	} else if args.random {
+		random(args.random_prob, args.random_count, questions)
 	} else {
 		fmt.Println("Welcome to study-cli!")
 		fmt.Println("Use --help for more info")
