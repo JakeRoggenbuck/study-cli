@@ -1,6 +1,6 @@
 # study-cli
 
-# Question Set Schema
+## Question Set Schema
 ```go
 type Single struct {
     Name string `json:"name"`
@@ -20,3 +20,9 @@ type Single struct {
     }
 ]
 ```
+
+## TODO
+- Add delay or user interaction for learn mode
+- Add set filename for dataset
+- Add dataset manager
+- Add random quiz mode (allow user to run the command a lot, and only quiz a fraction of the time, e.g. run at bash start)
