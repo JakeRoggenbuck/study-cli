@@ -24,4 +24,3 @@ type Single struct {
 
 ## TODO
 - Add dataset manager
-- Add random quiz mode (allow user to run the command a lot, and only quiz a fraction of the time, e.g. run at bash start)
