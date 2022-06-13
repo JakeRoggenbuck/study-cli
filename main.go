@@ -5,6 +5,8 @@ import (
     "io/ioutil"
     "log"
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 type Single struct {
@@ -29,11 +31,19 @@ func load_questions() []Single {
 	return payload
 }
 
-func main() {
+func learn(amount int, questions []Single) {
+	for i := 0; i < amount; i++ {
+		rand_num := rand.Intn(len(questions))
 
-	questions := load_questions()
-
-	for _, x := range questions {
-		fmt.Println(x.Name)
+		picked := questions[rand_num]
+		fmt.Println(picked.Question)
+		fmt.Println(picked.Answers[picked.Correct][3:] + "\n")
 	}
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	questions := load_questions()
+	
+	learn(10, questions)
 }
