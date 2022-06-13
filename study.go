@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"github.com/gookit/color"
+	"math/rand"
 )
 
 func learn(amount int, questions []Single) {
