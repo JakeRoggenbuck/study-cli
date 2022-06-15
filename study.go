@@ -14,7 +14,16 @@ func learn(amount int, questions []Single) {
 
 		picked := questions[rand_num]
 		fmt.Println(picked.Question)
-		color.Green.Println(picked.Answers[picked.Correct][3:] + "\n")
+
+		ans := picked.Answers[picked.Correct]
+		if ans[3:] == "All these choices are correct" {
+			for _, a := range picked.Answers {
+				color.Green.Println(a[3:])
+			}
+		} else {
+			color.Green.Println(ans[3:])
+		}
+		fmt.Print("\n")
 
 		fmt.Print("Reviewed? ")
 		fmt.Scan(&ready)
