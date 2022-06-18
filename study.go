@@ -32,6 +32,7 @@ func learn(amount int, questions []Single) {
 }
 
 func quiz(amount int, questions []Single) {
+	correct := 0
 	for i := 0; i < amount; i++ {
 		fmt.Println("--------------------------------------------------------------------------------")
 		rand_num := rand.Intn(len(questions))
@@ -51,6 +52,7 @@ func quiz(amount int, questions []Single) {
 		fmt.Print("\n")
 		if input == answers[picked.Correct] {
 			color.Green.Print("Correct\n\n")
+			correct++
 		} else {
 			// Highlight correct and incorrect answers
 			index_of_wrong_ans := indexOf(input, answers)
@@ -72,6 +74,8 @@ func quiz(amount int, questions []Single) {
 
 		fmt.Print("\n\n")
 	}
+
+	fmt.Printf("Graded: %d/%d = %v\n", correct, amount, float64(correct)/float64(amount))
 }
 
 func random(random_prob int, random_count int, questions []Single) {
