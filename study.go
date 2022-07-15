@@ -6,13 +6,36 @@ import (
 	"math/rand"
 )
 
-func learn(amount int, questions []Single) {
+func learn_random(amount int, questions []Single) {
 	var ready string
 
 	for i := 0; i < amount; i++ {
 		rand_num := rand.Intn(len(questions))
 
 		picked := questions[rand_num]
+		fmt.Println(picked.Question)
+
+		ans := picked.Answers[picked.Correct]
+		if ans[3:] == "All these choices are correct" {
+			for _, a := range picked.Answers {
+				color.Green.Println(a[3:])
+			}
+		} else {
+			color.Green.Println(ans[3:])
+		}
+		fmt.Print("\n")
+
+		fmt.Print("Reviewed? ")
+		fmt.Scan(&ready)
+		fmt.Print("\n")
+	}
+}
+
+func learn_linear(amount int, questions []Single) {
+	var ready string
+
+	for i := 0; i < len(questions); i++ {
+		picked := questions[i]
 		fmt.Println(picked.Question)
 
 		ans := picked.Answers[picked.Correct]

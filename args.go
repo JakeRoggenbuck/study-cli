@@ -6,6 +6,7 @@ import (
 
 type Args struct {
 	learn        bool
+	learn_all	 bool
 	quiz         bool
 	amount       int
 	filename     string
@@ -16,6 +17,7 @@ type Args struct {
 
 func parse_args() Args {
 	learn_flag := flag.Bool("learn", false, "Set to learn mode")
+	learn_all_flag := flag.Bool("learn_all", false, "Set to learn all mode")
 	quiz_flag := flag.Bool("quiz", false, "Set to quiz mode")
 	amount := flag.Int("amount", 10, "Set amount of questions")
 	filename := flag.String("filename", "questions.json", "Set filename for questions")
@@ -25,5 +27,5 @@ func parse_args() Args {
 
 	flag.Parse()
 
-	return Args{*learn_flag, *quiz_flag, *amount, *filename, *random, *random_prob, *random_count}
+	return Args{*learn_flag, *learn_all_flag, *quiz_flag, *amount, *filename, *random, *random_prob, *random_count}
 }

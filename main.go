@@ -38,7 +38,9 @@ func main() {
 	questions := load_questions(args.filename)
 
 	if args.learn {
-		learn(args.amount, questions)
+		learn_random(args.amount, questions)
+	} else if args.learn_all {
+		learn_linear(args.amount, questions)
 	} else if args.quiz {
 		quiz(args.amount, questions)
 	} else if args.random {
