@@ -22,6 +22,20 @@ type SingleFRQ struct {
 	Question string `json:"question"`
 }
 
+type QuestionType int
+
+
+const (
+	FRQ QuestionType = iota + 1
+	MCQ
+)
+
+type Single struct {
+	FRQ []SingleFRQ
+	MCQ []SingleFRQ
+	Type QuestionType
+}
+
 func load_questions[T SingleFRQ | SingleMCQ](filename string) []T {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -38,14 +52,22 @@ func load_questions[T SingleFRQ | SingleMCQ](filename string) []T {
 }
 
 func arg_match[T SingleFRQ | SingleMCQ](args Args, questions []T) {
+	var question_arr Single
+	if args.frq {
+		question_arr := Single{FRQ: questions, MCQ: nil, Type: FRQ}
+	} else {
+		question_arr := Single{FRQ: nil, MCQ: questions, Type: MCQ}
+	}
+
+
 	if args.learn {
 		learn_random(args.amount, questions)
 	} else if args.learn_all {
-		learn_linear(args.amount, questions)
+		learn_linear(args.amount, question_arr)
 	} else if args.quiz {
-		quiz(args.amount, questions)
+		quiz(args.amount, question_arr)
 	} else if args.random {
-		random(args.random_prob, args.random_count, questions)
+		random(args.random_prob, args.random_count, question_arr)
 	} else {
 		fmt.Println("Welcome to study-cli!")
 		fmt.Println("Use --help for more info")
