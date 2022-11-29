@@ -9,20 +9,26 @@ import (
 	"time"
 )
 
-type Single struct {
+type SingleMCQ struct {
 	Name     string   `json:"name"`
 	Correct  int      `json:"correct"`
 	Answers  []string `json:"answers"`
 	Question string   `json:"question"`
 }
 
-func load_questions(filename string) []Single {
+type SingleFRQ struct {
+	Name     string `json:"name"`
+	Answer   string `json:"answer"`
+	Question string `json:"question"`
+}
+
+func load_questions[T SingleFRQ | SingleMCQ](filename string) []T {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
 
-	var payload []Single
+	var payload []T
 	err = json.Unmarshal(content, &payload)
 	if err != nil {
 		log.Fatal("Error during Unmarshal(): ", err)
@@ -31,12 +37,7 @@ func load_questions(filename string) []Single {
 	return payload
 }
 
-func main() {
-	rand.Seed(time.Now().UnixNano())
-	args := parse_args()
-
-	questions := load_questions(args.filename)
-
+func arg_match[T SingleFRQ | SingleMCQ](args Args, questions []T) {
 	if args.learn {
 		learn_random(args.amount, questions)
 	} else if args.learn_all {
@@ -49,4 +50,18 @@ func main() {
 		fmt.Println("Welcome to study-cli!")
 		fmt.Println("Use --help for more info")
 	}
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	args := parse_args()
+
+	if args.frq {
+		questions := load_questions[SingleFRQ](args.filename)
+		arg_match[SingleFRQ](args, questions)
+	} else{
+		questions := load_questions[SingleMCQ](args.filename)
+		arg_match[SingleMCQ](args, questions)
+	}
+
 }
