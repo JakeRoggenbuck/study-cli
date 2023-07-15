@@ -4,9 +4,13 @@ import (
 	"fmt"
 	"github.com/gookit/color"
 	"math/rand"
+	"reflect"
 )
 
-func learn_random(amount int, questions []Single) {
+func learn_random[T SingleFRQ | SingleMCQ](amount int, questions []T) {
+}
+
+func learn_random_mcq(amount int, questions []SingleMCQ) {
 	var ready string
 
 	for i := 0; i < amount; i++ {

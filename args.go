@@ -5,8 +5,10 @@ import (
 )
 
 type Args struct {
+	mcq          bool
+	frq          bool
 	learn        bool
-	learn_all	 bool
+	learn_all    bool
 	quiz         bool
 	amount       int
 	filename     string
@@ -16,6 +18,8 @@ type Args struct {
 }
 
 func parse_args() Args {
+	mcq_flag := flag.Bool("mcq", false, "Set to mcq mode (multiple choice question)")
+	frq_flag := flag.Bool("frq", false, "Set to frq mode (free response question)")
 	learn_flag := flag.Bool("learn", false, "Set to learn mode")
 	learn_all_flag := flag.Bool("learn_all", false, "Set to learn all mode")
 	quiz_flag := flag.Bool("quiz", false, "Set to quiz mode")
@@ -27,5 +31,5 @@ func parse_args() Args {
 
 	flag.Parse()
 
-	return Args{*learn_flag, *learn_all_flag, *quiz_flag, *amount, *filename, *random, *random_prob, *random_count}
+	return Args{*mcq_flag, *frq_flag, *learn_flag, *learn_all_flag, *quiz_flag, *amount, *filename, *random, *random_prob, *random_count}
 }
